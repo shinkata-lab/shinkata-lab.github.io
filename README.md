@@ -26,3 +26,12 @@
 - コラム3本を独立ページで追加：column-nakamahazure.html（仲間外れの読み方）／column-zukei.html（図形の数え方）／column-suuretsu.html（数列の規則）。例題は自明なオリジナル例のみで、出題中・今後の問題と答えは含まない（ふわが全文を読んで確認済み）。
 - index.html：ホームに「読み物（コラム）」導線、フッターに about/privacy リンク、結果画面に「今日の3問の振り返り」（QUESTIONS原文の正解・解説を再掲）を追加。問題データ・解析まわり・CSPは不変（diff照合済み）。
 - 同期対象は7ファイルに増加（index/about/privacy/README＋コラム3本）。
+
+## v2.5.1 AdSense審査準備（2026-11-03、ふわ施工）
+- 片岡がAdSenseに申込（サイト shinkata-lab.github.io 登録、publisher ID ca-pub-2078950867616586）。サイト側の準備としてふわが実施：
+  - 全6ページ（index/about/privacy/コラム3本）の <head> にAdSenseコードスニペットを設置。
+  - CSPがある4ページ（index＋コラム3本）は script-src / img-src / connect-src に https://pagead2.googlesyndication.com を追加（about/privacyにはCSPなし）。
+  - ads.txt をルートに追加（google.com, pub-2078950867616586, DIRECT, f08c47fec0942fa0）。
+  - privacy.html の「広告について」を AdSense 導入に合わせた開示文に更新。
+- 承認後にやること：広告枠の実装（結果画面の振り返りの下＋コラム内、手動配置）と、そのためのCSP追加（広告配信ドメイン）。自動広告の扱いは承認後に判断。
+- 同期対象は8ファイルに増加（＋ads.txt）。
