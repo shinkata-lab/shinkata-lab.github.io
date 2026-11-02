@@ -14,4 +14,10 @@
 
 ## v2.3.1 CSP修正（2026-11-02 ふわ施工）
 - 症状：GA4タグは発火するがヒットが1件も送信されない。Tag Assistantで原因特定：CSPの img-src が googletagmanager.com への画像ビーコン（/a?id= ヒット）を拒否していた（"Refused to load the image ... img-src 'self' data: blob:"）。
-- 修正：img-src に https://www.googletagmanager.com と https://www.google-analytics.com を追加（この1行のみ）。GPTに次版でCSPへ反映するよう別途連絡すること。
+- 修正：img-src に https://www.googletagmanager.com と https://www.google-analytics.com を追加（この1行のみ）。
+
+## v2.4 解析ローダー標準化（2026-11-02、GPT制作・ふわ検証）
+- v2.3.1でもヒット0件が継続。切り分けの結果：GAプロパティ正常（直接送信テスト着弾）／素のgtagテストページは本番CSP付きでも計測成功／よって原因はv2.3のカスタムローダー（dataLayer再代入・二重定義・リトライ・ロック・ハードストップ）と特定。
+- v2.4で解析まわりだけを標準スニペット方式に置換（dataLayer初期化1回のみ、同意後に consent default → js → config、独自イベントは単純なlocalStorage台帳＋標準gtag('event')）。問題データ・文言・デザイン・CSPは不変（CSPはv2.3.1の文字列のままGPT側にも反映済み）。
+- privacy.htmlは撤回時の文言を「次回の読み込みから計測を停止」に合わせて1行だけ改訂。
+- 診断用テストページ ga-test.html / ga-test-csp.html は検証完了後に削除すること。
