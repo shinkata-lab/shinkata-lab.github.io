@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com; style-src 'unsafe-inline'; script-src 'unsafe-inline' https://www.googletagmanager.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com; media-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>図形を数えるとき重複と数え落としを減らす方法｜ひまクイ！今日の3問</title>
+<meta name="description" content="図形を数えるとき重複と数え落としを減らす方法。説明用の独立した例で、クイズを楽しむための考え方をまとめます。">
+<style>
+  body{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;margin:0;background:#fff8ec;color:#333;line-height:1.8}
+  main{max-width:720px;margin:0 auto;padding:24px 16px 48px}
+  h1{font-size:1.5rem;margin:0 0 8px}
+  h2{font-size:1.15rem;margin:28px 0 8px;border-left:6px solid #ffb020;padding-left:10px}
+  a{color:#d97706}
+  .back{display:inline-block;margin-bottom:16px}
+  footer{margin-top:40px;font-size:.85rem;color:#777}
+</style>
+<style>
+  *{box-sizing:border-box} .article-intro{color:#555} .example{margin:18px 0;padding:16px;background:#fffdf7;border:1px solid #f1d5a2;border-radius:12px} .example p:first-child{margin-top:0}.example p:last-child{margin-bottom:0} .example svg{display:block;width:100%;max-width:360px;height:auto;margin:16px auto}.method li,.mistakes li{margin:10px 0}.article-cta{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:10px;background:#fff1d8;border:1px solid #edc78e;font-weight:750;text-decoration:none}.article-cta:focus-visible,a:focus-visible{outline:3px solid #d97706;outline-offset:3px}footer p{margin:8px 0}.small{font-size:.86rem;color:#666}.hidden{display:none!important}.footer-settings{appearance:none;border:0;background:none;color:#d97706;font:inherit;font-weight:800;text-decoration:underline;cursor:pointer;padding:2px 4px}.footer-settings:focus-visible,.consent-panel button:focus-visible{outline:4px solid rgba(217,119,6,.3);outline-offset:3px}.btn{appearance:none;border:0;border-radius:12px;min-height:54px;padding:13px 18px;font:inherit;font-weight:800;cursor:pointer}.btn-primary{width:100%;background:#a64d00;color:#fff}.btn-ghost{background:#fff;color:#333;border:1px solid #d8c9b5}.consent-panel{position:fixed;z-index:1000;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(720px,calc(100% - 24px));max-height:calc(100vh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));max-height:calc(100dvh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));overflow:auto;overscroll-behavior:contain;background:#fff;border:2px solid #f1d5a2;border-radius:18px;padding:18px;box-shadow:0 18px 50px rgba(31,36,48,.2)}.consent-panel h2{font-size:1.08rem;margin:0 0 7px;border:0;padding:0}.consent-panel p{font-size:.9rem;margin:7px 0;color:#4c5360}.consent-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.consent-state{font-size:.84rem;font-weight:800;color:#a64d00}@media(max-width:430px){.consent-actions{grid-template-columns:1fr} .example{padding:13px} .method,.mistakes{padding-left:1.4em}}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← 今日の3問にもどる</a>
+  <article>
+  <h1>図形を数えるとき重複と数え落としを減らす方法</h1>
+
+  <p class="article-intro">図形を数えているうちに、「これはもう数えたかな？」と迷うことがあります。頭の中だけで覚えようとせず、数える順番を決めると見直しがしやすくなります。</p>
+
+  <h2>小さな例：横1列の長方形</h2>
+  <div class="example">
+    <p>横長の長方形を、同じ幅の3つの区画に分けた図を考えます。ここでは、描かれた線を4辺に使う、縦横の長方形をすべて数えます。区画をまたぐものも含めます。</p>
+    <svg viewBox="0 0 360 130" role="img" aria-labelledby="rectExampleTitle rectExampleDesc"><title id="rectExampleTitle">横1列に並ぶ3つの区画</title><desc id="rectExampleDesc">横長の外枠に、縦の区切り線を2本引いた説明用の図。各区画の幅は同じです。</desc><g fill="none" stroke="#333" stroke-width="3"><rect x="36" y="30" width="288" height="64"/><path d="M132 30V94M228 30V94"/></g></svg>
+    <p>1区画ぶんの幅なら3個、2区画ぶんの幅なら2個、3区画ぶんの幅なら1個。幅ごとに分けると、3＋2＋1＝6個と整理できます。</p>
+  </div>
+
+  <h2>重複と数え落としを減らす、3つの手順</h2>
+  <ol class="method">
+    <li><strong>何を1個と数えるか、先に確認する。</strong> 対象の形、大小を含めるか、どの線を使ってよいかを読みます。見えている小さな区画だけとは限りません。</li>
+    <li><strong>大きさなどで、重ならないグループに分ける。</strong> 例の図なら「1区画幅・2区画幅・3区画幅」です。それぞれの長方形が1つのグループだけに入るように分けます。</li>
+    <li><strong>各グループの中を、同じ向きにたどる。</strong> 左から右へ、上から下へなど、順番を固定します。数えたものの位置をメモし、グループごとの小計を出してから合計します。</li>
+  </ol>
+
+  <h2>よくある数え間違い</h2>
+  <ul class="mistakes">
+    <li><strong>同じ形を別の場所から数え直す。</strong> 長方形なら「左端と右端」の組を記すなど、位置を区別する目印があると重複に気づきやすくなります。</li>
+    <li><strong>小さな区画を数えて終わる。</strong> 複数の区画を合わせた大きな形も対象か、条件を確認しましょう。</li>
+    <li><strong>線がつながっていない形も数える。</strong> 4辺が必要なら、途中で途切れている部分を想像で補わず、実際の線をたどって確かめます。</li>
+  </ul>
+
+  <h2>まとめ</h2>
+  <p>数える対象を確認し、グループを分け、順番を決めて小計を出す。迷ったときに全部を最初から数え直すより、どのグループを見直せばよいか分かりやすくなります。</p>
+
+  <p><a class="article-cta" href="./">今日の3問に挑戦する →</a></p>
+  </article>
+  <footer>
+    <p><a href="./">← 今日の3問にもどる</a> ／ <a href="about.html">このサイトについて</a></p>
+    <p>プレイ記録はこの端末・このブラウザ内だけに保存します。Google Analytics 4は、解析に同意した場合だけ読み込みます。ログインはありません。 <a href="privacy.html">プライバシーポリシー</a> ／ <button type="button" class="footer-settings" id="analyticsSettingsBtn">解析設定</button></p>
+    <p>© 暇な時クイズ</p>
+  </footer>
+</main>
+<section id="analyticsConsentPanel" class="consent-panel hidden" role="dialog" aria-modal="true" aria-labelledby="analyticsConsentTitle">
+  <h2 id="analyticsConsentTitle">アクセス解析の設定</h2>
+  <div id="analyticsConsentState" class="consent-state"></div>
+  <p>同意した場合だけ、Google Analytics 4を読み込みます。Google Analytics 4はCookieを使用する場合があり、閲覧ページ（URLのクエリ・ハッシュは除外）、流入元（オリジンのみ）、端末・ブラウザ情報などの標準計測に加え、このサイト独自の <code>daily_view</code> / <code>quiz_start</code> / <code>quiz_complete</code> を送信します。</p>
+  <p>氏名・メールアドレス・回答内容・正解数・ヒント使用・端末内のプレイ履歴は送信しません。「同意しない」でも全問そのまま遊べます。設定はいつでも変更・撤回できます。</p>
+  <p class="small"><a href="privacy.html">プライバシーポリシーを確認</a></p>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-primary" id="analyticsAcceptBtn">同意する</button>
+    <button type="button" class="btn btn-ghost" id="analyticsRejectBtn">同意しない</button>
+  </div>
+  <div id="analyticsRuntimeStatus" class="small" role="status"></div>
+</section>
+<script>
+'use strict';
+const dateFmt=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'});
+function getJstDateKey(now=new Date()){const p=Object.fromEntries(dateFmt.formatToParts(now).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return `${p.year}-${p.month}-${p.day}`;}
+/* ANALYTICS_V23_BEGIN */
+const GA_MEASUREMENT_ID='G-BJL73RRLW3';
+const ANALYTICS_CONSENT_KEY='himaqui.analytics.v1.consent';
+const ANALYTICS_LEDGER_KEY='himaqui.analytics.v1.sent';
+const ANALYTICS_PROBE_KEY='himaqui.analytics.v1.probe';
+const ANALYTICS_CUSTOM_EVENTS=new Set(['daily_view','quiz_start','quiz_complete']);
+const analyticsState={consent:'unset',storageOk:true,initialized:false,currentView:'unknown',message:''};
+window.dataLayer=window.dataLayer||[];
+function gtag(){window.dataLayer.push(arguments);}
+function analyticsSetView(v){analyticsState.currentView=v;}
+function analyticsSetMessage(msg){analyticsState.message=msg||'';const el=document.getElementById('analyticsRuntimeStatus');if(el)el.textContent=analyticsState.message;}
+function analyticsStorageFailure(){analyticsState.storageOk=false;analyticsSetMessage(analyticsState.initialized?'解析設定を端末に保存できません。ゲームはそのまま遊べます。':'解析設定を端末に保存できないため、アクセス解析は停止しています。ゲームはそのまま遊べます。');}
+function analyticsStorageGet(key){try{return localStorage.getItem(key);}catch(e){analyticsStorageFailure();return null;}}
+function analyticsStorageSet(key,value){try{localStorage.setItem(key,value);return true;}catch(e){analyticsStorageFailure();return false;}}
+function analyticsStorageRemove(key){try{localStorage.removeItem(key);return true;}catch(e){analyticsStorageFailure();return false;}}
+function analyticsReadConsent(){const raw=analyticsStorageGet(ANALYTICS_CONSENT_KEY);if(!analyticsState.storageOk)return 'denied-runtime';if(raw===null)return 'unset';try{const v=JSON.parse(raw);if(v&&v.v===1&&(v.status==='granted'||v.status==='denied')&&typeof v.updatedAt==='string')return v.status;}catch(e){}if(!analyticsState.initialized)analyticsSetMessage('解析設定の保存内容を確認できなかったため、安全のためアクセス解析を停止しています。設定し直すまで送信しません。');return 'corrupt';}
+function analyticsWriteConsent(status){if(status!=='granted'&&status!=='denied')return false;return analyticsStorageSet(ANALYTICS_CONSENT_KEY,JSON.stringify({v:1,status,updatedAt:new Date().toISOString()}));}
+function analyticsReadLedger(){const raw=analyticsStorageGet(ANALYTICS_LEDGER_KEY);if(!analyticsState.storageOk)return null;if(raw===null)return {v:1,days:{}};try{const v=JSON.parse(raw);if(!v||v.v!==1||!v.days||typeof v.days!=='object'||Array.isArray(v.days))throw new Error('bad ledger');for(const [day,events] of Object.entries(v.days)){if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||!events||typeof events!=='object'||Array.isArray(events))throw new Error('bad day');for(const k of Object.keys(events))if(!ANALYTICS_CUSTOM_EVENTS.has(k)||events[k]!==true)throw new Error('bad event');}return v;}catch(e){if(!analyticsState.initialized)analyticsSetMessage('解析の重複防止記録を確認できなかったため、安全のためアクセス解析を停止しています。ゲームの記録には影響しません。');return null;}}
+function analyticsWriteLedger(v){return analyticsStorageSet(ANALYTICS_LEDGER_KEY,JSON.stringify(v));}
+function analyticsSanitizedLocation(){try{const u=new URL(location.href);return `${u.origin}${u.pathname}`;}catch(e){return '';}}
+function analyticsSanitizedReferrer(){if(!document.referrer)return '';try{return new URL(document.referrer).origin+'/';}catch(e){return '';}}
+function analyticsEnvironmentReady(){if(!analyticsState.storageOk)return false;const probe=String(Date.now());if(!analyticsStorageSet(ANALYTICS_PROBE_KEY,probe))return false;const echoed=analyticsStorageGet(ANALYTICS_PROBE_KEY);const removed=analyticsStorageRemove(ANALYTICS_PROBE_KEY);return analyticsState.storageOk&&echoed===probe&&removed;}
+function analyticsEnable(){
+  if(analyticsState.initialized)return true;
+  if(analyticsState.consent!=='granted'||analyticsReadConsent()!=='granted'||!analyticsReadLedger()||!analyticsEnvironmentReady())return false;
+  analyticsState.initialized=true;
+  const s=document.createElement('script');
+  s.async=true;
+  s.src='https://www.googletagmanager.com/gtag/js?id='+GA_MEASUREMENT_ID;
+  s.referrerPolicy='no-referrer';
+  s.dataset.himaquiGa4='1';
+  document.head.appendChild(s);
+  gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',functionality_storage:'granted',security_storage:'granted'});
+  gtag('js',new Date());
+  gtag('config',GA_MEASUREMENT_ID,{send_page_view:true,page_location:analyticsSanitizedLocation(),page_referrer:analyticsSanitizedReferrer(),allow_google_signals:false,allow_ad_personalization_signals:false});
+  analyticsSetMessage('アクセス解析は同意中です。いつでも「解析設定」から撤回できます。');
+  return true;
+}
+function analyticsEmitCustom(eventName){
+  if(!analyticsState.initialized||!analyticsState.storageOk||analyticsState.consent!=='granted'||!ANALYTICS_CUSTOM_EVENTS.has(eventName))return;
+  const ledger=analyticsReadLedger();if(!ledger)return;
+  const dateKey=getJstDateKey(),day=ledger.days[dateKey]||{};if(day[eventName]===true)return;
+  ledger.days[dateKey]={...day,[eventName]:true};
+  if(analyticsWriteLedger(ledger))gtag('event',eventName);
+}
+function analyticsPanel(show,settings=false){const p=document.getElementById('analyticsConsentPanel'),st=document.getElementById('analyticsConsentState');if(!p)return;if(show){p.classList.remove('hidden');const label=analyticsState.consent==='granted'?'現在：同意中':analyticsState.consent==='denied'?'現在：同意しない設定':'現在：未選択';st.textContent=settings?label:'初回のみ、解析するか選べます。';document.getElementById('analyticsAcceptBtn').focus();}else p.classList.add('hidden');}
+function analyticsGrant(){if(!analyticsState.storageOk||!analyticsWriteConsent('granted')){analyticsPanel(true,true);return;}analyticsState.consent='granted';analyticsPanel(false);if(analyticsEnable()){analyticsSetMessage('アクセス解析は同意中です。いつでも「解析設定」から撤回できます。');if(analyticsState.currentView==='home')analyticsEmitCustom('daily_view');}}
+function analyticsReject(){if(!analyticsWriteConsent('denied')){analyticsPanel(true,true);return;}analyticsState.consent='denied';analyticsSetMessage(analyticsState.initialized?'アクセス解析は次回の読み込みから停止します。「解析設定」からいつでも変更できます。':'アクセス解析は停止しています。「解析設定」からいつでも変更できます。');analyticsPanel(false);}
+function analyticsHandleStorage(ev){if(ev.key!==null&&ev.key!==ANALYTICS_CONSENT_KEY)return;const c=analyticsReadConsent();analyticsState.consent=c==='granted'?'granted':c==='unset'?'unset':'denied';if(c==='granted'){if(analyticsState.initialized)analyticsSetMessage('アクセス解析は同意中です。いつでも「解析設定」から撤回できます。');}else if(analyticsState.initialized)analyticsSetMessage('アクセス解析は次回の読み込みから停止します。「解析設定」からいつでも変更できます。');}
+function initAnalyticsV23(){document.getElementById('analyticsSettingsBtn').addEventListener('click',()=>analyticsPanel(true,true));document.getElementById('analyticsAcceptBtn').addEventListener('click',analyticsGrant);document.getElementById('analyticsRejectBtn').addEventListener('click',analyticsReject);window.addEventListener('storage',analyticsHandleStorage);const c=analyticsReadConsent();if(c==='granted'){analyticsState.consent='granted';if(analyticsEnable()&&analyticsState.currentView==='home')analyticsEmitCustom('daily_view');}else if(c==='denied'){analyticsState.consent='denied';}else if(c==='unset'){analyticsState.consent='unset';analyticsPanel(true,false);}else{analyticsState.consent='denied';analyticsPanel(true,true);}}
+/* ANALYTICS_V23_END */
+analyticsSetView('column');
+initAnalyticsV23();
+</script>
+</body>
+</html>

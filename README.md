@@ -21,3 +21,8 @@
 - v2.4で解析まわりだけを標準スニペット方式に置換（dataLayer初期化1回のみ、同意後に consent default → js → config、独自イベントは単純なlocalStorage台帳＋標準gtag('event')）。問題データ・文言・デザイン・CSPは不変（CSPはv2.3.1の文字列のままGPT側にも反映済み）。
 - privacy.htmlは撤回時の文言を「次回の読み込みから計測を停止」に合わせて1行だけ改訂。
 - 診断用テストページ ga-test.html / ga-test-csp.html は検証完了後に削除すること。
+
+## v2.5 コラム追加（2026-11-03、GPT制作・ふわ検証）
+- コラム3本を独立ページで追加：column-nakamahazure.html（仲間外れの読み方）／column-zukei.html（図形の数え方）／column-suuretsu.html（数列の規則）。例題は自明なオリジナル例のみで、出題中・今後の問題と答えは含まない（ふわが全文を読んで確認済み）。
+- index.html：ホームに「読み物（コラム）」導線、フッターに about/privacy リンク、結果画面に「今日の3問の振り返り」（QUESTIONS原文の正解・解説を再掲）を追加。問題データ・解析まわり・CSPは不変（diff照合済み）。
+- 同期対象は7ファイルに増加（index/about/privacy/README＋コラム3本）。
